@@ -18,7 +18,7 @@ db.once("open", function () {
   console.log("DATABASE CONNECTED");
 });
 
-app.use(cors());
+app.use(cors({ origin: "https://voten.netlify.app", origin: "localhost" }));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
