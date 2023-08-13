@@ -45,5 +45,5 @@ exports.login = async (req, res) => {
   });
 
   // Return the token.
-  res.json({ token });
+  res.json(user);
 };

@@ -54,7 +54,7 @@ exports.getDetails = async (req, res) => {
   res.json(user.details);
 };
 exports.deleteDetail = async (req, res) => {
-  const userId = req.query.userId;
+  const userId = req.body.userId;
   const detailIndex = req.query.index;
   // Check if the user exists.
   const user = await User.findById(userId);

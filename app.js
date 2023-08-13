@@ -7,6 +7,7 @@ var detailsRoute = require("./routes/details.js");
 var authRoute = require("./routes/auth.js");
 var adminUpdateRoute = require("./routes/admin.js");
 let mongoose = require("mongoose");
+let cors = require("cors");
 
 var app = express();
 mongoose.connect(
@@ -17,6 +18,7 @@ db.once("open", function () {
   console.log("DATABASE CONNECTED");
 });
 
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
